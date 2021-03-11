@@ -1,0 +1,19 @@
+import React from 'react';
+
+const Example: React.FC = (props) => {
+    //:: State
+
+    //:: Variables
+
+    //:: Hooks
+
+    //:: Callbacks
+
+    //:: Components
+
+    return (
+        <div></div>
+    );
+};
+
+export default Example;

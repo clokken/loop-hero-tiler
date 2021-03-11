@@ -1,0 +1,14 @@
+.rootWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabviewWrapper {
+    display: flex;
+    align-items: stretch;
+
+    > * {
+        flex-grow: 1;
+    }
+}

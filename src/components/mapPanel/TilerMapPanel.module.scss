@@ -1,0 +1,26 @@
+.root {
+    height: 100%; // cover the body of the panel
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.gridWrapper {
+    flex-grow: 1;
+    position: relative;
+
+    .innerGridWrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: auto;
+    }
+}
+
+.paletteWrapper {
+    border-top: 1px solid #fff;
+}

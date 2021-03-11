@@ -1,0 +1,42 @@
+$hoverOffset: 10px;
+
+.root {
+    display: flex;
+    align-items: center;
+    margin-top: $hoverOffset;
+    max-width: 100px;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    white-space: nowrap;
+    font-size: 12px;
+    box-sizing: border-box;
+    cursor: pointer;
+    padding: 2px;
+    border: 1px solid transparent;
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+
+        transition : filter .1s ease-in-out;
+        -webkit-transition : -webkit-filter .1s ease-in-out;
+    }
+
+    transition: transform .2s ease-in-out;
+
+    &:hover {
+        transform: translateY(-$hoverOffset);
+
+        img {
+            filter: brightness(150%) contrast(50%);
+        }
+    }
+
+    &.active {
+        transition: none;
+        border: 1px solid red;
+        border-radius: 6px;
+    }
+}

@@ -1,0 +1,37 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    border: 1px solid #fff;
+}
+
+.tabs {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    border-bottom: 1px solid #fff;
+}
+
+.body {
+    flex-grow: 1;
+}
+
+.tab {
+    padding: 6px 16px;
+    text-align: center;
+    cursor: pointer;
+
+    // &:not(:last-child) {
+        border-right: 1px solid #fff;
+    // }
+
+    &:hover, &.active {
+        color: #000;
+        background-color: #fff;
+    }
+}
+
+.element {
+    margin: 2px;
+}

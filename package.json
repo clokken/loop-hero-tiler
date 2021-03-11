@@ -1,5 +1,5 @@
 {
-  "name": "cra-typescript",
+  "name": "loop-hero-tiler",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,6 +10,8 @@
     "@types/node": "^12.20.5",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.2",
+    "lodash": "^4.17.21",
+    "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.3",
@@ -17,9 +19,9 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "rimraf public/dist && react-app-rewired start",
+    "build": "rimraf public/dist && react-app-rewired build",
+    "test": "eact-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -39,5 +41,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.168",
+    "react-app-rewired": "^2.1.8",
+    "rimraf": "^3.0.2",
+    "webpack-spritesmith": "^1.1.0"
   }
 }

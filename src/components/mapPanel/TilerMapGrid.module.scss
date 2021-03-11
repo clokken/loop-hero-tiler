@@ -1,0 +1,70 @@
+$border: 1px solid #333;
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    border: $border;
+    box-sizing: content-box;
+}
+
+.tile {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border: $border;
+
+    &:hover {
+        border-color: #ff0000;//#8f8f6f;
+    }
+}
+
+.overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+
+    &.weak {
+        &:hover {
+            background-color: rgba(255, 255, 255, .1);
+        }
+    }
+
+    &.strong {
+        &:hover {
+            background-color: rgba(255, 255, 255, .25);
+        }
+    }
+}
+
+$valueOutlineWidth: 1px;
+$valueOutlineColor: #000;
+
+.metaValue {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: monospace;
+
+    color: #fff;
+
+    // \/ only works "well" when $valueOutlineWidth === 1
+    text-shadow:
+        -$valueOutlineWidth -$valueOutlineWidth 0 $valueOutlineColor,
+        $valueOutlineWidth -$valueOutlineWidth 0 $valueOutlineColor,
+        -$valueOutlineWidth $valueOutlineWidth 0 $valueOutlineColor,
+        $valueOutlineWidth $valueOutlineWidth 0 $valueOutlineColor;
+
+    /*> span {
+        background-color: rgba(0, 0, 0, .2);
+    }*/
+}
+
+.spriteWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
