@@ -1,0 +1,93 @@
+{
+  "spritesheet": {
+    "width": 253,
+    "height": 253,
+    "image": "spritesheet.png",
+    "name": "spritesheet",
+    "escaped_image": "spritesheet.png",
+    "px": {
+      "height": "253px",
+      "width": "253px"
+    }
+  },
+  "sprites": {
+    "error": {
+      "x": 195,
+      "y": 0,
+      "width": 58,
+      "height": 58
+    },
+    "mountain": {
+      "x": 195,
+      "y": 58,
+      "width": 58,
+      "height": 58
+    },
+    "peak-botcenter": {
+      "x": 0,
+      "y": 0,
+      "width": 65,
+      "height": 65
+    },
+    "peak-botleft": {
+      "x": 65,
+      "y": 0,
+      "width": 65,
+      "height": 65
+    },
+    "peak-botright": {
+      "x": 0,
+      "y": 65,
+      "width": 65,
+      "height": 65
+    },
+    "peak-midcenter": {
+      "x": 65,
+      "y": 65,
+      "width": 65,
+      "height": 65
+    },
+    "peak-midleft": {
+      "x": 130,
+      "y": 0,
+      "width": 65,
+      "height": 65
+    },
+    "peak-midright": {
+      "x": 130,
+      "y": 65,
+      "width": 65,
+      "height": 65
+    },
+    "peak-topcenter": {
+      "x": 0,
+      "y": 130,
+      "width": 65,
+      "height": 65
+    },
+    "peak-topleft": {
+      "x": 65,
+      "y": 130,
+      "width": 65,
+      "height": 65
+    },
+    "peak-topright": {
+      "x": 130,
+      "y": 130,
+      "width": 65,
+      "height": 65
+    },
+    "peak": {
+      "x": 195,
+      "y": 116,
+      "width": 58,
+      "height": 58
+    },
+    "rock": {
+      "x": 0,
+      "y": 195,
+      "width": 58,
+      "height": 58
+    }
+  }
+}
