@@ -23,24 +23,24 @@ export default class LoaderService {
             .then(json => {
                 const coordinateMap: CoordinateMap = {};
 
-                const wid = json['meta']['size']['w'];
-                const hei = json['meta']['size']['h'];
+                const wid = json['spritesheet']['width'];
+                const hei = json['spritesheet']['height'];
 
-                for (const key in json['frames']) {
-                    const frame = json['frames'][key]['frame'];
+                for (const key in json['sprites']) {
+                    const frame = json['sprites'][key];
                     coordinateMap[key] = {
                         x: frame['x'],
                         y: frame['y'],
-                        w: frame['w'],
-                        h: frame['h'],
+                        w: frame['width'],
+                        h: frame['height'],
                     };
                 }
 
                 const result: SpritesheetInfo = {
-                    id: 'tiles',
+                    id: json['spritesheet']['name'],
                     url: spritesheet.imageUrl,
                     meta: {
-                        image: json['meta']['image'],
+                        image: json['spritesheet']['image'],
                         wid: wid,
                         hei: hei,
                     },

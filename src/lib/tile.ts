@@ -22,7 +22,7 @@ export abstract class Tile {
 
     renderImage(world: World, posX: number, posY: number): Sprite | null {
         return {
-            spriteName: this.idName + '.png',
+            spriteName: this.idName,
         };
     }
 
@@ -31,7 +31,7 @@ export abstract class Tile {
     }
 
     paletteImage() {
-        return this.idName + '.png';
+        return this.idName;
     }
 
     //:: Events

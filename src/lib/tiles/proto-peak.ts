@@ -5,14 +5,14 @@ import { World } from "../world";
 
 export class ProtoPeakTile extends Tile {
     paletteImage() {
-        return 'peak.png';
+        return 'peak';
     }
 
     renderImage(world: World, posX: number, posY: number): Sprite | null {
         const sprite = 'peak';
 
         return {
-            spriteName: sprite + '.png',
+            spriteName: sprite,
         };
     }
 

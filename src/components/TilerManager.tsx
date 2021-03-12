@@ -229,16 +229,6 @@ function loadSpritePool(info: SpritesheetInfo): SpritePool {
     for (const spriteName in info.coordinateMap) {
         const coordinates = info.coordinateMap[spriteName];
 
-        /*
-            background-size: (($total_width / {{width}}) * 100%) (($total_height / {{height}}) * 100%);
-            background-image: url({{{escaped_image}}});
-            background-position: (({{offset_x}} / ($total_width - {{width}})) * -100%) (({{offset_y}} / ($total_height - {{height}})) * -100%);
-            width: {{px.width}};
-            height: {{px.height}};
-        */
-
-        // const wid = coordinates.w;
-        // const hei = coordinates.h;
         const bgWid = ((info.meta.wid / coordinates.w) * 100) + '%';
         const bgHei = ((info.meta.hei / coordinates.h) * 100) + '%';
         const posX = ((coordinates.x / (info.meta.wid - coordinates.w)) * 100) + '%';
@@ -247,13 +237,9 @@ function loadSpritePool(info: SpritesheetInfo): SpritePool {
         const element = (
             <div className='sprite'
             style={{
-                // width: wid,
-                // height: hei,
                 backgroundImage: `url('${info.url}')`,
                 backgroundPosition: `${posX} ${posY}`,
                 backgroundSize: `${bgWid} ${bgHei}`,
-                // maxWidth: '100%',
-                // maxHeight: '100%',
                 width: '100%',
                 height: '100%',
             }} />

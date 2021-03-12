@@ -53,8 +53,8 @@ export class PeakTile extends Tile {
     renderImage(world: World, posX: number, posY: number): Sprite | null {
         const pos = this.calculatePosition(world, posX, posY);
         const sprite = pos === null
-            ? 'error.png'
-            : `peak-${pos}.png`;
+            ? 'error'
+            : `peak-${pos}`;
 
         return {
             spriteName: sprite,

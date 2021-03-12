@@ -19,10 +19,12 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "start": "rimraf public/dist && react-app-rewired start",
-    "build": "rimraf public/dist && react-app-rewired build",
-    "test": "eact-app-rewired test",
-    "eject": "react-scripts eject"
+    "start": "gulp && react-scripts start",
+    "build": "gulp && react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -44,8 +46,9 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.168",
-    "react-app-rewired": "^2.1.8",
-    "rimraf": "^3.0.2",
-    "webpack-spritesmith": "^1.1.0"
+    "gh-pages": "^3.1.0",
+    "gulp": "^4.0.2",
+    "gulp.spritesmith": "^6.11.0",
+    "rimraf": "^3.0.2"
   }
 }
