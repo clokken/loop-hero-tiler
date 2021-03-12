@@ -9,7 +9,7 @@ type Props = {
 };
 
 const TilerPaletteOption: React.FC<Props> = (props) => {
-    const imgSrc = 'static/palette/' + props.tile.paletteImage() + '.png';
+    const imgSrc = 'static/palette/' + props.tile.paletteImage();
 
     return (
         <div

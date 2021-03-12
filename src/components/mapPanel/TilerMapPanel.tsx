@@ -1,5 +1,6 @@
 import React from 'react';
 import { MouseButton } from '../../lib/types';
+import { World } from '../../lib/world';
 import { MapDefinitions, MapRendererOptions, PaletteController, SpritePool, TileResolver } from '../TilerManager';
 import TilerMapGrid from './TilerMapGrid';
 import style from './TilerMapPanel.module.scss';
@@ -14,6 +15,7 @@ type Props = {
     paletteController: PaletteController;
     spritePool: SpritePool;
     onClick: (x: number, y: number, button: MouseButton) => void;
+    world: World;
 };
 
 const TilerMapPanel: React.FC<Props> = (props) => {
@@ -28,6 +30,7 @@ const TilerMapPanel: React.FC<Props> = (props) => {
                         tileResolver={props.tileResolver}
                         spritePool={props.spritePool}
                         onClick={props.onClick}
+                        world={props.world}
                     />
                 </div>
             </div>

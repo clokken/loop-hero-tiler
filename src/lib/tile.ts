@@ -8,6 +8,8 @@ export abstract class Tile {
         this.idName = idName;
     }
 
+    //:: Misc
+
     calculateValue(world: World, posX: number, posY: number): number | null {
         return null;
     }
@@ -15,6 +17,8 @@ export abstract class Tile {
     calculateValueAsString(world: World, posX: number, posY: number): string | null {
         return null;
     }
+
+    //:: Graphics
 
     renderImage(world: World, posX: number, posY: number): Sprite | null {
         return {
@@ -27,7 +31,19 @@ export abstract class Tile {
     }
 
     paletteImage() {
-        return this.idName;
+        return this.idName + '.png';
+    }
+
+    //:: Events
+
+    /** Returns true if it made any change to the world's tiledata */
+    onTilePlaced(world: World, posX: number, posY: number): boolean {
+        return false;
+    }
+
+    /** Returns true if it made any change to the world's tiledata */
+    onTileReplaced(world: World, posX: number, posY: number, replacement: Tile): boolean {
+        return false;
     }
 
     protected iterateAdjacentTiles(
@@ -35,31 +51,19 @@ export abstract class Tile {
         posX: number,
         posY: number,
         includeDiagonals: boolean,
-        it: (tile: Tile) => void,
+        it: (tile: Tile | undefined) => void,
     ): void {
-        const hasLeft = posX > 0;
-        const hasRight = posX < world.mapWidth - 1;
-        const hasAbove = posY > 0;
-        const hasBelow = posY < world.mapHeight - 1;
 
-        if (hasLeft)
-            it(world.getTileAt(posX - 1, posY));
-        if (hasRight)
-            it(world.getTileAt(posX + 1, posY));
-        if (hasAbove)
-            it(world.getTileAt(posX, posY - 1));
-        if (hasBelow)
-            it(world.getTileAt(posX, posY + 1));
+        it(world.getTileAt(posX - 1, posY));
+        it(world.getTileAt(posX + 1, posY));
+        it(world.getTileAt(posX, posY - 1));
+        it(world.getTileAt(posX, posY + 1));
 
         if (includeDiagonals) {
-            if (hasLeft && hasAbove)
-                it(world.getTileAt(posX - 1, posY - 1));
-            if (hasRight && hasAbove)
-                it(world.getTileAt(posX + 1, posY - 1));
-            if (hasLeft && hasBelow)
-                it(world.getTileAt(posX - 1, posY + 1));
-            if (hasRight && hasBelow)
-                it(world.getTileAt(posX + 1, posY + 1));
+            it(world.getTileAt(posX - 1, posY - 1));
+            it(world.getTileAt(posX + 1, posY - 1));
+            it(world.getTileAt(posX - 1, posY + 1));
+            it(world.getTileAt(posX + 1, posY + 1));
         }
     }
 }

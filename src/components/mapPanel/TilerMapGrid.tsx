@@ -12,22 +12,10 @@ type Props = {
     tileResolver: TileResolver;
     spritePool: SpritePool;
     onClick: (x: number, y: number, button: MouseButton) => void;
+    world: World;
 };
 
 const TilerMapGrid: React.FC<Props> = (props) => {
-    // TODO optimize this better (probably need to remove props.tileData
-    // from dep list (but doing that stops tiles from syncinc))
-    const world: World = React.useMemo(() => {
-        return {
-            mapWidth: props.mapDefinitions.mapWidth,
-            mapHeight: props.mapDefinitions.mapHeight,
-            getTileAt: (x: number, y: number) => {
-                const tileId = props.tileData[(y * props.mapDefinitions.mapWidth) + x];
-                return props.tileResolver.getTileFromId(tileId);
-            },
-        };
-    }, [props.mapDefinitions, props.tileResolver, props.tileData]);
-
     const cellStyle: React.CSSProperties = {
         width: props.mapRendererOptions.cellWidthPx + 2, // +2 = border
         height: props.mapRendererOptions.cellHeightPx + 2, // + 2 = border
@@ -40,9 +28,9 @@ const TilerMapGrid: React.FC<Props> = (props) => {
             const posX = idx % props.mapDefinitions.mapWidth;
             const posY = Math.floor(idx / props.mapDefinitions.mapWidth);
 
-            const sprite = tile.renderImage(world, posX, posY);
+            const sprite = tile.renderImage(props.world, posX, posY);
             const metaValue = props.mapRendererOptions.renderMode === 'value'
-                ? tile.calculateValueAsString(world, posX, posY)
+                ? tile.calculateValueAsString(props.world, posX, posY)
                 : null;
 
             const pooledSpriteElement = sprite !== null
@@ -56,7 +44,7 @@ const TilerMapGrid: React.FC<Props> = (props) => {
                     posX={posX}
                     posY={posY}
                     tile={tile}
-                    world={world}
+                    world={props.world}
                     metaValue={metaValue}
                     useSprite={pooledSpriteElement}
                 />

@@ -1,9 +1,11 @@
 import { Json } from "../json";
 import { CoordinateMap, SpritesheetInfo } from "../spritesheet";
 
+const timestamp = new Date().getTime();
+
 const spritesheet = {
-    jsonUrl: 'dist/spritesheet.json',
-    imageUrl: 'dist/spritesheet.png',
+    jsonUrl: 'dist/spritesheet.json?ts=' + timestamp,
+    imageUrl: 'dist/spritesheet.png?ts=' + timestamp,
 };
 
 const preloadImages = [
@@ -12,7 +14,8 @@ const preloadImages = [
 
 export default class LoaderService {
     loadJson(): Promise<Json> {
-        return fetch('tiles.json').then(response => response.json());
+        return fetch('tiles.json?ts=' + timestamp)
+            .then(response => response.json());
     }
 
     loadSpritesheetInfo(): Promise<SpritesheetInfo> {
@@ -22,8 +25,6 @@ export default class LoaderService {
 
                 const wid = json['meta']['size']['w'];
                 const hei = json['meta']['size']['h'];
-
-                console.log(`${wid} ${hei} !`)
 
                 for (const key in json['frames']) {
                     const frame = json['frames'][key]['frame'];

@@ -11,6 +11,7 @@ import { emptyTile, tileRegistry } from '../lib/registry';
 import LoaderService from '../lib/services/loader-service';
 import { SpritesheetInfo } from '../lib/spritesheet';
 import { MouseButton } from '../lib/types';
+import { StandardWorld } from '../lib/world';
 
 export type MapDefinitions = {
     mapWidth: number;
@@ -48,6 +49,8 @@ type MainOptions = {
 const loaderService = new LoaderService();
 
 const TilerManager: React.FC<MainOptions> = (props) => {
+    //:: State
+
     const [statusMessage, setStatusMessage] = React.useState('Loading...');
     const [jsonData, setJsonData] = React.useState<Json>();
     const [mapDefinitions, setMapDefinitions] = React.useState<MapDefinitions>({
@@ -60,10 +63,13 @@ const TilerManager: React.FC<MainOptions> = (props) => {
         DEFAULT_MAP_RENDERER_OPTIONS
     );
     const [spritePool, setSpritePool] = React.useState<SpritePool>();
+    const [world, setWorld] = React.useState<StandardWorld>();
 
     const paletteController = React.useRef<PaletteController>({
         currentTile: null,
     });
+
+    //:: Hooks
 
     React.useEffect(() => {
         setStatusMessage('Loading tiles...');
@@ -121,11 +127,16 @@ const TilerManager: React.FC<MainOptions> = (props) => {
     React.useEffect(() => {
         if (tileResolver) {
             const emptyId = tileResolver.getIdFromTile(emptyTile);
-            setTileData(initializeTileData(mapDefinitions.mapWidth, mapDefinitions.mapHeight, emptyId));
+            const data = initializeTileData(mapDefinitions.mapWidth, mapDefinitions.mapHeight, emptyId);
+
+            setTileData(data);
+            setWorld(new StandardWorld(mapDefinitions, tileResolver, data, setTileData));
         }
     }, [tileResolver, mapDefinitions]);
 
-    if (!jsonData || !tileData || !tileResolver || !spritePool) {
+    //:: Setup
+
+    if (!jsonData || !tileData || !tileResolver || !spritePool || !world) {
         return (
             <div>{statusMessage}</div>
         );
@@ -146,15 +157,10 @@ const TilerManager: React.FC<MainOptions> = (props) => {
         if (paletteTile === null)
             return;
 
-        const idx = (posY * mapDefinitions.mapWidth) + posX;
-        const currentTileId = tileData[idx];
-        const currentTile = tileResolver.getTileFromId(currentTileId);
-
-        if (currentTile !== paletteTile) {
-            tileData[idx] = tileResolver.getIdFromTile(paletteTile);
-            setTileData([...tileData]);
-        }
+        world.tryToSetTileAt(posX, posY, paletteTile);
     };
+
+    //:: Components
 
     const mapView = <TilerMapPanel
         tileData={tileData}
@@ -165,6 +171,7 @@ const TilerManager: React.FC<MainOptions> = (props) => {
         paletteController={paletteController.current}
         spritePool={spritePool}
         onClick={onTileClick}
+        world={world}
     />;
 
     const stringView = <TilerStringPanel />;
@@ -190,9 +197,10 @@ const TilerManager: React.FC<MainOptions> = (props) => {
                 setMapRendererOptions={setMapRendererOptions}
                 resetMap={() => {
                     const emptyId = tileResolver.getIdFromTile(emptyTile);
-                    setTileData(
-                        initializeTileData(mapDefinitions.mapWidth, mapDefinitions.mapHeight, emptyId)
-                    );
+                    const data = initializeTileData(mapDefinitions.mapWidth, mapDefinitions.mapHeight, emptyId);
+
+                    world.overwriteData(data);
+                    setTileData(data);
                 }}
             />
         </div>
@@ -229,8 +237,8 @@ function loadSpritePool(info: SpritesheetInfo): SpritePool {
             height: {{px.height}};
         */
 
-        const wid = coordinates.w;
-        const hei = coordinates.h;
+        // const wid = coordinates.w;
+        // const hei = coordinates.h;
         const bgWid = ((info.meta.wid / coordinates.w) * 100) + '%';
         const bgHei = ((info.meta.hei / coordinates.h) * 100) + '%';
         const posX = ((coordinates.x / (info.meta.wid - coordinates.w)) * 100) + '%';
